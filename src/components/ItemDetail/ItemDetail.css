@@ -1,0 +1,17 @@
+.cardGame{
+    padding: 10px;
+    background-color: rgb(25, 137, 171);
+    border-radius: 20px;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 20px;
+}
+.cardGame .imgContainer{
+    grid-row: 1/5;
+    grid-column: 1/4;
+}
+.cardGame .infoCard{
+    grid-row: 1/2;
+    grid-column: 4/6;
+}
