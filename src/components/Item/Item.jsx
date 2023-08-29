@@ -10,7 +10,7 @@ function Item(props) {
       <h3>{name}</h3>
       <img src={image} alt="" />
       <strong>{price}</strong>
-      <strong>ID: {id}</strong>
+      {/* <strong>ID: {id}</strong> */}
       <Link to={`/item/${id}`}>Ver Juego</Link>
     </div>
   );

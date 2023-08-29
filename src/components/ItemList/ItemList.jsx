@@ -10,7 +10,7 @@ function ItemList(props) {
       <h1>Catalogo</h1>
       <div className="item">
         {catalogue.map((game) => (
-          <Item key={game.id} name={game.name} image={game.image} price={game.price} id={game.id} discount={game.discount} rate={game.rate} category={game.category}/>
+          <Item key={game.nombre} name={game.nombre} image={game.urlImagen} price={game.precio} id={game.id} discount={game.descuento} rate={game.rate} category={game.categoria}/>
         ))}
       </div>
     </div>

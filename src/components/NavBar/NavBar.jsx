@@ -27,7 +27,8 @@ function NavBar() {
             <li><Link to={"/category/platforms"}>Platforms</Link></li>
           </ul>
 
-          <CartWidget/>
+          <Link to={"/cart"}><CartWidget/></Link>
+          
         </div>
       </nav>
     </header>    

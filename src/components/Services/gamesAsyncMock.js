@@ -1,170 +1,222 @@
+import { db } from "../../Firebase/FirebaseConfig"
+import { collection, query, getDocs, getDoc, doc, where } from "firebase/firestore";
+/* import { db } from "../../Firebase/FirebaseConfig"
+import { collection, addDoc } from "firebase/firestore";
+
 const games = [
     {
-        id: 1,
-        name: "dredge",
-        price: 300,
-        discount: 0.25,
-        rate: 4,
-        image: "https://assets.nintendo.com/image/upload/c_fill,w_1200/q_auto:best/f_auto/dpr_2.0/ncom/software/switch/70010000049267/fe7c711c32bb15ecf9c96dac96a7c6818e49d265c28fa59145c0cbf5ebf34055",
-        category: "adventure"
+      nombre: "The Witcher 3: Wild Hunt",
+      precio: 39.99,
+      descuento: 0.2,
+      rate: 9.8,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/292030/header.jpg",
+      categoria: "rpg"
     },
     {
-        id: 2,
-        name: "resident evil 4",
-        price: 1200,
-        discount: 0,
-        rate: 5,
-        image: "https://img.youtube.com/vi/7RPSBeRIP6Y/maxresdefault.jpg",
-        category: "action"
+      nombre: "Hades",
+      precio: 24.99,
+      descuento: 0.1,
+      rate: 9.7,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/1145360/header.jpg",
+      categoria: "action"
     },
     {
-        id: 3,
-        name: "sons of the fores",
-        price: 350,
-        discount: 0.2,
-        rate: 5,
-        image: "https://cdn.cloudflare.steamstatic.com/steam/apps/1326470/capsule_616x353.jpg?t=1679677298",
-        category: "adventure"
+      nombre: "Portal 2",
+      precio: 9.99,
+      descuento: 0.5,
+      rate: 9.6,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/620/header.jpg",
+      categoria: "fps"
     },
     {
-        id: 4,
-        name: "the forest",
-        price: 200,
-        discount: 0.3,
-        rate: 5,
-        image: "https://store.playstation.com/store/api/chihiro/00_09_000/container/MX/es/99/UP0240-CUSA10518_00-THEFOREST0000000/0/image?_version=00_09_000&platform=chihiro&bg_color=000000&opacity=100&w=720&h=720",
-        category: "adventure"
+      nombre: "Divinity: Original Sin II - Definitive Edition",
+      precio: 44.99,
+      descuento: 0.3,
+      rate: 9.5,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/435150/header.jpg",
+      categoria: "rpg"
     },
     {
-        id: 5,
-        name: "the wild eight",
-        price: 300,
-        discount: 0.45,
-        rate: 4,
-        image: "https://i.ytimg.com/vi/g5A0MnEbLyA/maxresdefault.jpg",
-        category: "adventure"
+      nombre: "Hollow Knight",
+      precio: 14.99,
+      descuento: 0.4,
+      rate: 9.4,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/367520/header.jpg",
+      categoria: "platforms"
     },
     {
-        id: 6,
-        name: "cs:go",
-        price: 0,
-        discount: 0,
-        rate: 4,
-        image: "https://cdn.akamai.steamstatic.com/steam/apps/730/capsule_616x353.jpg?t=1641233427",
-        category: "fps"
+      nombre: "DOOM Eternal",
+      precio: 59.99,
+      descuento: 0.2,
+      rate: 9.3,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/782330/header.jpg",
+      categoria: "fps"
     },
     {
-        id: 7,
-        name: "dayz",
-        price: 600,
-        discount: 0.2,
-        rate: 3,
-        image: "https://store-images.s-microsoft.com/image/apps.23097.69886306496288395.9ec42146-6037-4440-b5c7-3a44e5213cc3.0e09163e-a6c4-40f6-9fe1-24a6b4685c64",
-        category: "action"
+      nombre: "Sekiro™ Shadows Die Twice - GOTY Edition",
+      precio: 59.99,
+      descuento: null,
+      rate: 9.2,
+      urlImagen:
+        "https://cdn.akamai.steamstatic.com/steam/apps/814380/header.jpg",
+      categoria: "action"
     },
     {
-        id: 8,
-        name: "forza horizon 4",
-        price: 700,
-        discount: 0.2,
-        rate: 4,
-        image: "https://acnews.blob.core.windows.net/imgnews/large/NAZ_3bb72d659dab4948809a70a82168b881.jpg",
-        category: "races"
-    },
-    {
-        id: 9,
-        name: "the long dark",
-        price: 400,
-        discount: 0.75,
-        rate: 3,
-        image: "https://upload.wikimedia.org/wikipedia/en/thumb/6/68/The_Long_Dark_Key_Art.jpg/220px-The_Long_Dark_Key_Art.jpg",
-        category: "adventure"
-    },
-    {
-        id: 10,
-        name: "stardew valley",
-        price: 250,
-        discount: 0.45,
-        rate: 5,
-        image: "https://image.api.playstation.com/cdn/UP2456/CUSA06840_00/0WuZecPtRr7aEsQPv2nJqiPa2ZvDOpYm.png",
-        category: "rpg"
-    },
-    {
-        id: 11,
-        name: "dont starve together",
-        price: 100,
-        discount: 0.5,
-        rate: 4,
-        image: "https://image.api.playstation.com/cdn/UP2107/CUSA04236_00/39E95ckFs1PkxIFi9Ge0pRGNGmjLNB07.png",
-        category: "adventure"
-    },
-    {
-        id: 12,
-        name: "the last of us 1",
-        price: 1000,
-        discount: 0,
-        rate: 5,
-        image: "https://image.api.playstation.com/vulcan/ap/rnd/202206/0720/eEczyEMDd2BLa3dtkGJVE9Id.png",
-        category: "action"
-    },
-    {
-        id: 13,
-        name: "the last of us 2",
-        price: 1400,
-        discount: 0,
-        rate: 1,
-        image: "https://image.api.playstation.com/vulcan/img/rnd/202010/2618/w48z6bzefZPrRcJHc7L8SO66.png",
-        category: "action"
-    },
-    {
-        id: 14,
-        name: "elden ring",
-        price: 800,
-        discount: 0.3,
-        rate: 5,
-        image: "https://image.api.playstation.com/vulcan/ap/rnd/202110/2000/phvVT0qZfcRms5qDAk0SI3CM.png",
-        category: "action"
-    },
-    {
-        id: 15,
-        name: "cult of the lamb",
-        price: 250,
-        discount: 0.1,
-        rate: 5,
-        image: "https://image.api.playstation.com/vulcan/ap/rnd/202207/1823/uGwz6VetgE8k5BpCPKBD1qTj.png",
-        category: "action"
-    },
-    {
-        id: 16,
-        name: "overwatch",
-        price: 0,
-        discount: 0,
-        rate: 3,
-        image: "https://e00-marca.uecdn.es/assets/multimedia/imagenes/2022/10/03/16648149397801.jpg",
-        category: "fps"
-    },
-    {
-        id: 17,
-        name: "haven",
-        price: 150,
-        discount: 0.4,
-        rate: 5,
-        image: "https://image.api.playstation.com/vulcan/ap/rnd/202010/2317/TTPLQjs71sojy44vBWh4qeLY.png",
-        category: "adventure"
-    },
-    {
-        id: 18,
-        name: "celeste",
-        price: 100,
-        discount: 0.6,
-        rate: 5,
-        image: "https://media.vandal.net/m/44239/celeste-2018128121116_11.jpg",
-        category: "platforms"
+      nombre:
+        "The Elder Scrolls V Skyrim Special Edition",
+        precio:
+        39.99,
+        descuento:
+        null,
+        rate:
+        9.1,
+        urlImagen:
+        "https://cdn.akamai.steamstatic.com/steam/apps/489830/header.jpg",
+        categoria:
+        "rpg"
+     },
+     {
+       nombre:
+         "Red Dead Redemption II",
+         precio:
+         59.99,
+         descuento:
+         null,
+         rate:
+         9.0,
+         urlImagen:
+         "https://cdn.akamai.steamstatic.com/steam/apps/1174180/header.jpg",
+         categoria:
+         "adventure"
+     },
+     {
+       nombre:
+         "Half-Life Alyx",
+         precio:
+         59.99,
+         descuento:
+         null,
+         rate:
+         8.9,
+         urlImagen:
+         "https://cdn.akamai.steamstatic.com/steam/apps/546560/header.jpg",
+         categoria:
+         "fps"
+     },
+     {
+       nombre:
+         "Control Ultimate Edition",
+         precio:
+         39.99,
+         descuento:
+         null,
+         rate:
+         8.8,
+         urlImagen:
+         "https://cdn.akamai.steamstatic.com/steam/apps/870780/header.jpg",
+         categoria:
+         "action"
+     },
+     {
+       nombre:
+         "Resident Evil Village / Biohazard Village",
+         precio:
+         59.99,
+         descuento:
+         null,
+         rate:
+         8.7,
+         urlImagen:
+          'https://cdn.akamai.steamstatic.com/steam/apps/1196590/header.jpg',
+          categoria:'adventure'
+     },
+     {
+       nombre:'Death Stranding',
+       precio:'59,99',
+       descuento:null, 
+       rate:'8,6',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/1190460/header.jpg',
+       categoria:'adventure'
+     },
+     {
+       nombre:'Cyberpunk2077',
+       precio:'59,99',
+       descuento:null, 
+       rate:'8,5',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/1091500/header.jpg',
+       categoria:'rpg'
+     },
+     {
+       nombre:'Dark Souls III',
+       precio:'59,99',
+       descuento:null, 
+       rate:'8,4',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/374320/header.jpg',
+       categoria:'action'
+     },
+     {
+       nombre:'Fallout 4',
+       precio:'29,99',
+       descuento:null, 
+       rate:'8,3',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/377160/header.jpg',
+       categoria:'rpg'
+     },
+     {
+       nombre:'The Binding of Isaac: Rebirth',
+       precio:'14,99',
+       descuento:null, 
+       rate:'8,2',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/250900/header.jpg',
+       categoria:'action'
+     },
+     {
+       nombre:'Undertale',
+       precio:'9,99',
+       descuento:null, 
+       rate:'8,1',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/391540/header.jpg',
+       categoria:'rpg'
+     },
+     {
+       nombre:'Terraria',
+       precio:'9,99',
+       descuento:null, 
+       rate:'8,0',
+       urlImagen:'https://cdn.akamai.steamstatic.com/steam/apps/105600/header.jpg',
+       categoria:'adventure'
+     },
+     {
+      nombre: "Subnautica",
+      precio: 24.99,
+      descuento: null,
+      rate: 7.9,
+      urlImagen: "https://cdn.akamai.steamstatic.com/steam/apps/264710/header.jpg",
+      categoria: "adventure"
     }
-]
+  ];
+  
 
-export const getGames = () => {
-    return new Promise((resolve, reject) => {
+
+async function subirJuegos(games) {
+  const juegosRef = collection(db, "games");
+  for (const game of games) {
+    await addDoc(juegosRef, game);
+  }
+}
+
+subirJuegos(games);
+ */
+
+export const getGames = async () => {
+    const q = query(collection(db, "games"))
+    const docs = []
+    const querySnapshot = await getDocs(q)
+    querySnapshot.forEach(doc => {
+        docs.push({...doc.data(), id:doc.id})
+    });
+    return docs
+    /* new Promise((resolve, reject) => {
         if(games.length === 0) {
             reject(new Error(`No existen datos`));
         }
@@ -172,10 +224,24 @@ export const getGames = () => {
             resolve(games);
         }, 2000);
     }); 
-}
+    */
+} 
 
-export const getGameById = (gameId) => {
-    return new Promise(( resolve, reject ) => {
+export const getGameById = async (gameId) => {
+    try{
+        const q = doc(db, "games", gameId)
+        let game = {}
+        const querySnapshot = await getDoc(q)
+        if(querySnapshot.exists()){
+            game = ({...querySnapshot.data(), id: querySnapshot.id})
+        }
+        return game
+    }
+    catch(err) {
+        console.error(err)
+    }
+    
+    /* new Promise(( resolve, reject ) => {
         if(games.length === 0) {
             reject(new Error(`No existen datos`));
         }
@@ -183,12 +249,25 @@ export const getGameById = (gameId) => {
             const game = games.find(game => game.id == gameId);
             resolve(game);
             console.log(game)
-        }, 2000)
-    })
+        }, 2000) 
+    })*/
 }
 
-export const getGameByCategory = (idCategory) =>{
-    return new Promise (( resolve, reject ) => {
+export const getGameByCategory = async(idCategory) =>{
+    const q = query(collection(db, 'libros'), where('categoria', '==', idCategory))
+    try{
+        const querySnapshot = await getDocs(q)
+        const charData = querySnapshot.docs.map((doc) => ({
+            ...doc.data(),
+            id: doc.id,
+        }))
+        return charData
+    }
+    catch(err) {
+        console.error(err)
+    }
+    
+   /*  return new Promise (( resolve, reject ) => {
         if(games.length === 0) {
             reject(new Error(`No existen datos`));
         }
@@ -196,5 +275,5 @@ export const getGameByCategory = (idCategory) =>{
             const gameCategory = games.filter(game => game.category == idCategory)
             resolve(gameCategory);
         }, 2000)
-    })
+    }) */
 }

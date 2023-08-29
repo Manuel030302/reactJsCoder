@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from "react";
 import './ItemCount.css';
+import { cartContext } from "../../Context/CartContext";
 
 function ItemCount(props) {
   const {stock, initial} = props;
@@ -31,7 +32,10 @@ function ItemCount(props) {
       <button onClick={onAdd}>+</button>
       <strong>{counter}</strong>
       <button onClick={onRemove}>-</button>
+
+      <button onClick={() => props.onConfirm(counter)}>Agregar Al Carrito</button>
     </div>
+    // Agregar boton anadir al carrito o add to cart
   );
 }
 

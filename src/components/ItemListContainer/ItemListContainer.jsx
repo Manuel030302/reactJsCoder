@@ -29,12 +29,15 @@ function ItemListContainer(props) {
     } catch(err) {
       console.error(`Error al obtener los datos: ${err}`);
     }
-  }
-  
+  } 
 
   useEffect(() =>{
     fetchingGames();
   }, [category])
+
+  if(games.length === 0) {
+    return <h1>Cargando .  .  .</h1>
+  }
     
   return (
     <main>
