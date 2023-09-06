@@ -2,26 +2,25 @@ import { useState, createContext } from "react";
 
 const cartContext = createContext();
 
-// Custom provider
-// CartContextProvider (custom componente) !== cartContext.Provider (componente default)
-
 function CartContextProvider(props) {
   const [cart, setCart] = useState([]);
 
   function addToCart(game, count) {
-    //const newCart = [...cart];
-    const newCart = cart.map((item) => item);
-    const newItemInCart = { count, ...game };
-    newCart.push(newItemInCart);
+    const newCart = [...cart];
+
+    const itemInCart = newCart.find((item) => item.id === game.id)
+    if(itemInCart){
+      const index = newCart.findIndex((item) => item.id === game.id)
+      newCart[index].count += count
+    }else{
+      const newItemInCart = { count, ...game };
+      newCart.push(newItemInCart);
+    }
     setCart(newCart);
-    console.log(cart)
-    //setCart( [...cart, { ...product, count}])
   }
 
   function removeItem(id) {
-    // Filtrar los elementos del carrito para excluir el elemento con el id especificado
     const newCart = cart.filter((item) => item.id !== id);
-    // Actualizar el estado del carrito con el nuevo arreglo
     setCart(newCart);
 
     return null;
@@ -31,23 +30,24 @@ function CartContextProvider(props) {
     setCart([])
 
     return null;
-    // vaciar el carrito
   }
 
   function getTotalItemsInCart() {
-    // reduce()
-    let total = 0;
-    cart.forEach((item) => {
-      total += item.count;
-    });
-    return total;
+
+    return cart.reduce((total, item) => total += item.count, 0)
   }
 
-/*   function getItem(id) {
-    //find item
+  function calcularTotalAPagar() {
+    const totalPrice = cart.reduce((total, item) => { 
+      if(!item.descuento) {
+        return total + (item.precio * item.count) 
+      } else{
+        return total + ((item.precio-(item.precio*item.descuento))*item.count)
+      }
+    }, 0)
 
-    return cart[0];
-  } */
+    return totalPrice
+  }
 
   return (
     <cartContext.Provider
@@ -57,6 +57,7 @@ function CartContextProvider(props) {
         removeItem,
         clearCart,
         getTotalItemsInCart,
+        calcularTotalAPagar
       }}
     >
       {props.children}

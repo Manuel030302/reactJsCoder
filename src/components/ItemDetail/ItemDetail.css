@@ -1,7 +1,7 @@
 .cardGame{
     padding: 10px;
     background-color: rgb(25, 137, 171);
-    border-radius: 20px;
+/*     border-radius: 20px; */    
     display: grid;
     grid-template-columns: repeat(5, 1fr);
     grid-template-rows: repeat(4, 1fr);
@@ -10,6 +10,9 @@
 .cardGame .imgContainer{
     grid-row: 1/5;
     grid-column: 1/4;
+}
+.cardGame .imgContainer img{
+    max-width: 20vw;
 }
 .cardGame .infoCard{
     grid-row: 1/2;

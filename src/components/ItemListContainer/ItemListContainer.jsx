@@ -1,48 +1,64 @@
 import React, { useEffect, useState } from "react";
-import {getGames, getGameByCategory} from "../Services/gamesAsyncMock.js";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import { Jelly } from '@uiball/loaders'
 import "./ItemListContainer.css"
+import {getGames, getGameByCategory} from "../../Services/gamesAsyncMock.js";
 import ItemList from "../ItemList/ItemList.jsx";
 
 
 function ItemListContainer(props) {
   const {category} = useParams();
-  const {items} = props;
+  const {greeting} = props;
 
   const [games, setGames] = useState([]);
-  const [searchId, setSearchId] = useState(null);
-
+  const [wrongCategory, setWrongCategory] = useState(false);
+  const [fetchingError, setFetchingError] = useState(false)
+  
   async function fetchingGames() {
     try {
       let gamesFetched = category
-      console.log(`Categoria =========> ${category}`)
       if(gamesFetched) {
         gamesFetched = await getGameByCategory(gamesFetched);
-        console.log(`Categoria ${category} =====================>`);
-        console.log(gamesFetched);
+        !gamesFetched && setWrongCategory(true)
       } else {
         gamesFetched = await getGames();
-        console.log(`Catalogo completo =====================>`);
-        console.log(gamesFetched);
+        !gamesFetched && setFetchingError(true)
       }
       setGames(gamesFetched)
     } catch(err) {
-      console.error(`Error al obtener los datos: ${err}`);
+      console.error(`Error, couldn't get data: ${err}`);
     }
   } 
 
   useEffect(() =>{
-    fetchingGames();
+    fetchingGames(); 
   }, [category])
 
   if(games.length === 0) {
-    return <h1>Cargando .  .  .</h1>
+    return(
+      <Jelly 
+      size={80}
+      speed={0.9} 
+      color="black" 
+      />
+    )
   }
     
   return (
     <main>
-      <h1 className="">{props.greeting}</h1>
-      <ItemList catalogue={games}/>
+      <h1 className="">{greeting}</h1>
+      {
+        category ?
+          !wrongCategory ?
+            <ItemList catalogue={games}/>
+          :
+            <h3>Oops, It seems we dont have those kind of games</h3>
+        :
+          !fetchingError ?
+            <ItemList catalogue={games}/>
+          :
+            <h3>Oops, Couldn't load the games</h3>
+      }
     </main>
   );
 }

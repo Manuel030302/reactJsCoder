@@ -1,0 +1,34 @@
+button {
+    border-radius: 12px;
+    font-size: 16px;
+    padding: 12px 24px;
+    cursor: pointer;
+    outline: none;
+  }
+.itemCount{
+    background-color: rgb(84, 208, 200);
+}
+.itemCount .btnAdd {
+    background-color: blue;
+    color: white;
+}
+.itemCount .btnRes {
+    background-color: blue;
+    color: white;
+}
+.btnAdd:hover, .btnRes:hover {
+    background-color: #0066cc;
+}
+.btnAdd:active, .btnRes:active {
+    background-color: #003399;
+}
+.btnConfirm {
+    background-color: lightgreen;
+    color: black;
+}
+.btnConfirm:hover {
+    background-color: #abeaab;
+}
+.btnConfirm:active {
+    background-color: #32cd32;
+}

@@ -1,18 +1,20 @@
 import React from "react";
 
-function CheckIn({
-  nombre,
-  setNombre,
-  correo,
-  setCorreo,
-  confirmarCorreo,
-  setConfirmarCorreo,
-  telefono,
-  setTelefono,
-  confirmarTelefono,
-  setConfirmarTelefono,
-  handleSubmit
-}) {
+function CheckIn(props) {
+  const {
+    nombre,
+    setNombre,
+    correo,
+    setCorreo,
+    confirmarCorreo,
+    setConfirmarCorreo,
+    telefono,
+    setTelefono,
+    confirmarTelefono,
+    setConfirmarTelefono,
+    handleSubmit
+  } = props
+
   return (
     <div className="checkout-form">
       <h2>Finalizar Compra</h2>
@@ -57,7 +59,7 @@ function CheckIn({
           onChange={(e) => setConfirmarTelefono(e.target.value)}
           required
         />
-        <button type="submit">Finalizar</button>
+        <button type="submit">Finalizar compra</button>
       </form>
     </div>
   );

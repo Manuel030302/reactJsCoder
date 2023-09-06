@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
+import { cartContext } from "../../Context/CartContext.jsx";
 import Swal from 'sweetalert2'
 import { db } from "../../Firebase/FirebaseConfig.js";
 import { collection, addDoc } from "firebase/firestore"
 import CheckIn from "../CheckIn/CheckIn.jsx";
 
 function CheckInContainer({ onCompraExitosa }) {
+  const {cart, calcularTotalAPagar} = useContext(cartContext)
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [confirmarCorreo, setConfirmarCorreo] = useState("");
@@ -20,14 +22,18 @@ function CheckInContainer({ onCompraExitosa }) {
     }
 
     const timestamp = new Date()
+    const total = calcularTotalAPagar()
 
-    // Guardar la información en Firebase
     try {
-      const docRef = await addDoc(collection(db,'libros-seg'), {
-        nombre,
-        correo,
-        telefono,
-        timestamp
+      const docRef = await addDoc(collection(db,'games-orders'), {
+        buyer: {
+          nombre,
+          correo,
+          telefono,
+        },
+        items: [...cart],
+        timestamp,
+        total
       })
 
       Swal.fire({
@@ -40,7 +46,6 @@ function CheckInContainer({ onCompraExitosa }) {
 
       onCompraExitosa()
 
-      // Limpiar el formulario después de una compra exitosa
       setNombre('')
       setCorreo('')
       setConfirmarCorreo('')

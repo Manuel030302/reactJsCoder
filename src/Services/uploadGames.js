@@ -1,6 +1,4 @@
-import { db } from "../../Firebase/FirebaseConfig"
-import { collection, query, getDocs, getDoc, doc, where } from "firebase/firestore";
-/* import { db } from "../../Firebase/FirebaseConfig"
+/* import { db } from "../Firebase/FirebaseConfig"
 import { collection, addDoc } from "firebase/firestore";
 
 const games = [
@@ -207,73 +205,3 @@ async function subirJuegos(games) {
 
 subirJuegos(games);
  */
-
-export const getGames = async () => {
-    const q = query(collection(db, "games"))
-    const docs = []
-    const querySnapshot = await getDocs(q)
-    querySnapshot.forEach(doc => {
-        docs.push({...doc.data(), id:doc.id})
-    });
-    return docs
-    /* new Promise((resolve, reject) => {
-        if(games.length === 0) {
-            reject(new Error(`No existen datos`));
-        }
-        setTimeout(() => {
-            resolve(games);
-        }, 2000);
-    }); 
-    */
-} 
-
-export const getGameById = async (gameId) => {
-    try{
-        const q = doc(db, "games", gameId)
-        let game = {}
-        const querySnapshot = await getDoc(q)
-        if(querySnapshot.exists()){
-            game = ({...querySnapshot.data(), id: querySnapshot.id})
-        }
-        return game
-    }
-    catch(err) {
-        console.error(err)
-    }
-    
-    /* new Promise(( resolve, reject ) => {
-        if(games.length === 0) {
-            reject(new Error(`No existen datos`));
-        }
-        setTimeout(() =>{
-            const game = games.find(game => game.id == gameId);
-            resolve(game);
-            console.log(game)
-        }, 2000) 
-    })*/
-}
-
-export const getGameByCategory = async(idCategory) =>{
-    const q = query(collection(db, 'libros'), where('categoria', '==', idCategory))
-    try{
-        const querySnapshot = await getDocs(q)
-        const charData = querySnapshot.docs.map((doc) => ({
-            ...doc.data(),
-            id: doc.id,
-        }))
-        return charData
-    }
-    catch(err) {
-        console.error(err)
-    }
-    
-   /*  return new Promise (( resolve, reject ) => {
-        if(games.length === 0) {
-            reject(new Error(`No existen datos`));
-        }
-        setTimeout(() =>{
-            const gameCategory = games.filter(game => game.category == idCategory)
-            resolve(gameCategory);
-        }, 2000)
-    }) */
-}

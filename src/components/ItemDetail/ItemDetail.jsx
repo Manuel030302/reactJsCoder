@@ -1,7 +1,5 @@
 import React from "react";
-import { useState } from "react";
 import "./ItemDetail.css"
-import ItemCount from "../ItemCount/ItemCount.jsx";
 
 function ItemDetail(props) {
   const {game} = props
@@ -12,18 +10,18 @@ function ItemDetail(props) {
       </div>
       <div className="infoCard">
         <div>
-          <h4>{game.nombre}</h4>
+          <h2>{game.nombre}</h2>
         </div>
         <div>
-          <h3>{game.precio}</h3>
+          <h3>${game.precio-(game.precio*game.descuento)}</h3>
+          <p>Precio original: ${game.precio}</p>
+          <p>Descuento: {game.descuento}%</p>
         </div>
         <div>
-          <strong>{game.rate}</strong>
+          <strong>{game.rate}/10</strong>
+          <p>{game.categoria}</p>
         </div>
       </div>
-      {/* <div>
-        <ItemCount stock={10} initial={1}/>
-      </div> */}
     </div>   
   )
 }

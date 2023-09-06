@@ -1,18 +1,14 @@
 import React, {useState, useEffect} from "react";
+import { Link } from "react-router-dom";
 import './ItemCount.css';
-import { cartContext } from "../../Context/CartContext";
 
 function ItemCount(props) {
-  const {stock, initial} = props;
+  const {stock, onConfirm, toCart} = props;
   const [counter, setCounter] = useState(1);
+
   useEffect(() =>{
     if(stock === 0) {
       setCounter(0)
-    }
-    if(initial) {
-      if(initial <= stock && initial <= 0) {
-        setCounter(initial)
-      }
     }
   }, [])
 
@@ -28,14 +24,25 @@ function ItemCount(props) {
   };
   
   return (
-    <div>
-      <button onClick={onAdd}>+</button>
-      <strong>{counter}</strong>
-      <button onClick={onRemove}>-</button>
-
-      <button onClick={() => props.onConfirm(counter)}>Agregar Al Carrito</button>
+    <div className="itemCount">
+      {
+        stock > 0 ?
+          <>
+            <button onClick={onAdd} className="btnAdd">+</button>
+            <strong>{counter}</strong>
+            <button onClick={onRemove} className="btnRes">-</button>
+            {
+              !toCart ?
+                <button onClick={() => onConfirm(counter)} className="btnConfirm">Agregar Al Carrito</button> 
+              :
+                <Link to='/cart'><button className="btnConfirm">Ir Al Carrito</button> </Link>
+            }
+          </>
+        :
+          <h4>Este producto ya no se encuentra disponible</h4>
+      }
+      
     </div>
-    // Agregar boton anadir al carrito o add to cart
   );
 }
 

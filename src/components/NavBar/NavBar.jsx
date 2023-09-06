@@ -1,10 +1,11 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./NavBar.css";
 import CartWidget from "../CartWidget/CartWidget.jsx";
-import { Link } from "react-router-dom";
 
 function NavBar() {
-    const logoImage = "https://cdn-icons-png.flaticon.com/512/1451/1451303.png"
+  const logoImage = "https://cdn-icons-png.flaticon.com/512/1451/1451303.png"
+
   return (
     <header>
       <nav>
@@ -16,7 +17,6 @@ function NavBar() {
           </div>
         </Link>
         
-
         <div className="navContainer">
           <ul>
             <li><Link to={"/"}>Home</Link></li>
