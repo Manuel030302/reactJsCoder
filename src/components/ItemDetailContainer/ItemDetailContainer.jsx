@@ -19,7 +19,6 @@ function ItemDetailContainer() {
 
   useEffect(() => {
     requestGame();
-    console.log(game)
   }, [id, toCart]);
 
   function handleAddToCart(clickCount) {

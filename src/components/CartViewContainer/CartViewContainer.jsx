@@ -17,13 +17,13 @@ function CartViewContainer() {
     clearCart()
     setShowCheckoutForm(false)
   }
-  console.log(cart)
+  /* console.log(cart)
 
   useEffect(() => {
     console.log(`compra exitosa`)
     console.log(showCheckoutForm)
     
-  },[showCheckoutForm])
+  },[showCheckoutForm]) */
 
   return (
     <>
