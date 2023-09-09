@@ -4,7 +4,7 @@
 nav{
     display: flex;
     justify-content: space-between;
-    background-color: darkcyan;
+    /* background-color: darkcyan; */
     padding: 10px;
 }
 nav .logoTipo{

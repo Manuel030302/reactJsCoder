@@ -45,8 +45,10 @@ function ItemListContainer(props) {
   }
     
   return (
-    <main>
-      <h1 className="">{greeting}</h1>
+    <>
+      <div className="bg-gray-950 p-3">
+        <h1 className="m-0 text-4xl font-black font-mono bg-clip-text text-transparent bg-gradient-to-r from-fuchsia-800 to-green-300" >{greeting}</h1>
+      </div>
       {
         category ?
           !wrongCategory ?
@@ -59,7 +61,7 @@ function ItemListContainer(props) {
           :
             <h3>Oops, Couldn't load the games</h3>
       }
-    </main>
+    </>
   );
 }
 

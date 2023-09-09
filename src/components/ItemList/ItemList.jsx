@@ -7,8 +7,9 @@ function ItemList(props) {
 
   return (
     <div className="itemsContainer">
-      <h1>Catalogo</h1>
-      <div className="item">
+      <h2 className="text-3xl font-bold font-mono border-b-8 border-black border-double bg-gradient-to-r from-sky-200 to-emerald-200 shadow-2xl">Catalogo</h2>
+      {/* <div className="item  p-10 grid-flow-col"> */}
+      <div className="item p-10 justify-evenly bg-gradient-to-b from-transparent to-teal-950">
         {
           catalogue.length > 0 ? 
             catalogue.map((game) => (

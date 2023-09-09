@@ -7,7 +7,7 @@ function NavBar() {
   const logoImage = "https://cdn-icons-png.flaticon.com/512/1451/1451303.png"
 
   return (
-    <header>
+    <header className="bg-gradient-to-r from-fuchsia-800 to-green-900 ">
       <nav>
 
         <Link to={"/"}>

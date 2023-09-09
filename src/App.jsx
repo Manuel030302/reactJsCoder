@@ -10,19 +10,22 @@ import CartViewContainer from './components/CartViewContainer/CartViewContainer.
 function App() {
   return (
     <div className="App">
+      
       <CartContextProvider>
         <BrowserRouter>
           <NavBar/>
-        
-          <Routes>
-            <Route path='/' element={ <ItemListContainer greeting="Bienvenido" /> } />
-            <Route path='/category/:category' element={ <ItemListContainer /> } />
-            <Route path='/item/:id' element={ <ItemDetailContainer/> } />
-            <Route path='/cart' element={ <CartViewContainer/> } />
-            <Route path='*' element={ <h1>ERROR 404: Page Not Found</h1> } />
-          </Routes>
+          <main className=' bg-gradient-to-r from-fuchsia-800 to-green-300'>
+            <Routes>
+              <Route path='/' element={ <ItemListContainer greeting="Bienvenido a GameStore" /> } />
+              <Route path='/category/:category' element={ <ItemListContainer /> } />
+              <Route path='/item/:id' element={ <ItemDetailContainer/> } />
+              <Route path='/cart' element={ <CartViewContainer/> } />
+              <Route path='*' element={ <h1>ERROR 404: Page Not Found</h1> } />
+            </Routes>
+          </main>
         </BrowserRouter>   
       </CartContextProvider>
+      
     </div>
   );
 }
